@@ -15,47 +15,50 @@ class Notes extends StatelessWidget{
   Widget build(BuildContext context) {
 
 
-    return Stack(
-      fit: StackFit.expand,
+    return WillPopScope(
+      onWillPop: ()async{if(_controller.is_selected.value){_controller.is_selected.value=false;} return false;},
+      child: Stack(
+        fit: StackFit.expand,
 
-      children: [
-        WebsafeSvg.asset('assets/bg.svg',fit: BoxFit.fill,width: MediaQuery.of(context).size.width),
-        Obx(()=>Scaffold(
+        children: [
+          WebsafeSvg.asset('assets/bg.svg',fit: BoxFit.fill,width: MediaQuery.of(context).size.width),
+          Obx(()=>Scaffold(
 
-            backgroundColor:Colors.transparent,
-            appBar:_controller.is_selected==true?AppBar(
-              actions: [
+              backgroundColor:Colors.transparent,
+              appBar:_controller.is_selected==true?AppBar(
+                actions: [
 
-                FlatButton(onPressed: ()=>_controller.deleteNote(), child:Icon(Icons.delete,color: Colors.white)),
-                FlatButton(onPressed: ()=>_controller.unselectNote(), child:Icon(Icons.close,color: Colors.white))
-              ],
-              title: Text("Notlarım"),
+                  FlatButton(onPressed: ()=>_controller.deleteNote(), child:Icon(Icons.delete,color: Colors.white)),
+                  FlatButton(onPressed: ()=>_controller.unselectNote(), child:Icon(Icons.close,color: Colors.white))
+                ],
+                title: Text("Notlarım"),
 
-              elevation: 0,
-              backgroundColor: Theme.of(context).colorScheme.primary,
-            ): AppBar(
-              actions: [
-                FlatButton(onPressed: ()=>{Get.to(createNote())}, child: Text("Oluştur",style: TextStyle(color: Colors.white)))
-              ],
+                elevation: 0,
+                backgroundColor: Theme.of(context).colorScheme.primary,
+              ): AppBar(
+                actions: [
+                  FlatButton(onPressed: ()=>{Get.to(createNote())}, child: Text("Oluştur",style: TextStyle(color: Colors.white)))
+                ],
 
-              title: Text("Notlarım"),
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-            ),
-
-            body: Container(
-              margin: EdgeInsets.only(top:15),
-              child: SafeArea(
-                child: _controller.items.value.keys.length<1?Center(child:  Text("Henüz Not Yok",style: TextStyle(fontSize: 25,color: Colors.white),),):GridView.count(
-                  crossAxisCount: 3,
-
-                  mainAxisSpacing: 15,
-                  children:make_children() ,
-                ),
+                title: Text("Notlarım"),
+                elevation: 0,
+                backgroundColor: Colors.transparent,
               ),
-            )
-        ))
-      ],
+
+              body: Container(
+                margin: EdgeInsets.only(top:15),
+                child: SafeArea(
+                  child: _controller.items.value.keys.length<1?Center(child:  Text("Henüz Not Yok",style: TextStyle(fontSize: 25,color: Colors.white),),):GridView.count(
+                    crossAxisCount: 3,
+
+                    mainAxisSpacing: 15,
+                    children:make_children() ,
+                  ),
+                ),
+              )
+          ))
+        ],
+      ),
     );
   }
   make_children(){
