@@ -63,10 +63,7 @@ class NoteController extends GetxController with GetTickerProviderStateMixin{
   @override
   void onInit() {
     getNotes();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitDown,
-      DeviceOrientation.portraitUp,
-    ]);
+
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarBrightness: Brightness.dark
