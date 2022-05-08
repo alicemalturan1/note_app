@@ -1,6 +1,5 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:localstore/localstore.dart';
 import 'package:note/model/notemodel.dart';
@@ -64,6 +63,14 @@ class NoteController extends GetxController with GetTickerProviderStateMixin{
   @override
   void onInit() {
     getNotes();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]);
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarBrightness: Brightness.dark
+    ));
     super.onInit();
   }
 }

@@ -51,7 +51,7 @@ class Notes extends StatelessWidget{
                   child: _controller.items.value.keys.length<1?Center(child:  Text("Henüz Not Yok",style: TextStyle(fontSize: 25,color: Colors.white),),):GridView.count(
                     crossAxisCount: 3,
 
-                    mainAxisSpacing: 15,
+                    mainAxisSpacing: kDefaultPadding,
                     children:make_children() ,
                   ),
                 ),
